@@ -1,28 +1,148 @@
-# News API SDK for Node (javascript)
-Coming soon... this is where our officially supported SDK for Node JS is going to live.
+# newsapi
 
-***
+A node interface for NewsAPI.
 
-News API is a simple HTTP REST API for searching and retrieving live articles from all over the web. It can help you answer questions like:
+[![npm](https://img.shields.io/npm/v/newsapi.svg)](https://www.npmjs.com/package/newsapi)
+[![npm](https://img.shields.io/npm/dt/newsapi.svg)](https://www.npmjs.com/package/newsapi)
+[![Build Status](https://travis-ci.org/bzarras/newsapi.svg?branch=master)](https://travis-ci.org/bzarras/newsapi)
 
-- What top stories is the NY Times running right now?
-- What new articles were published about the next iPhone today?
-- Has my company or product been mentioned or reviewed by any blogs recently?
-- How many social shares has an article received? (Coming soon!)
+Up-to-date news headlines and metadata in JSON from 70+ popular news sites. Powered by NewsAPI.org.
 
-You can search for articles with any combination of the following criteria:
+You will need an API key from [https://newsapi.org](https://newsapi.org).
 
-- Keyword or phrase. Eg: find all articles containing the word 'Microsoft'.
-- Date published. Eg: find all articles published yesterday.
-- Source name. Eg: find all articles by 'TechCrunch'.
-- Source domain name. Eg: find all articles published on nytimes.com.
-- Language. Eg: find all articles written in English.
+Please look at their [documentation](https://newsapi.org/docs) to see how to use the API. The convenience functions provided by this module
+simply pass their options along as querystring parameters to the REST API, so the [documentation](https://newsapi.org/docs)
+is totally valid. There are some usage examples below to see how these options should be passed in.
 
-You can sort the results in the following orders:
+If you use this in a project, add a 'powered by' attribution link back to NewsAPI.org
 
-- Date published
-- Relevancy to search keyword
-- Popularity of source
-- Social shares (Coming soon!)
+## Add to your project
+```shell
+$ npm install newsapi --save
+```
 
-You need an API key to use the API - this is a unique key that identifies your requests. They're free for development, open-source, and non-commercial use. You can get one here: [https://newsapi.org](https://newsapi.org).
+## Test
+```shell
+$ API_KEY=<your api key> npm test
+```
+
+## Example usage of v2 API
+All methods support promises and node-style callbacks.
+```js
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI('YOUR_API_KEY');
+
+// To query top headlines
+// All options passed to topHeadlines are optional, but you need to include at least one of them
+newsapi.v2.topHeadlines({
+  sources: 'bbc-news,the-verge',
+  q: 'trump',
+  category: 'politics',
+  language: 'en',
+  country: 'us'
+}).then(response => {
+  console.log(response);
+  /*
+    {
+      status: "ok",
+      articles: [...]
+    }
+  */
+});
+
+// To query everything
+// You must include at least one q, source, or domain
+newsapi.v2.everything({
+  q: 'trump',
+  sources: 'bbc-news,the-verge',
+  domains: 'bbc.co.uk, techcrunch.com',
+  from: '2017-12-01',
+  to: '2017-12-12',
+  language: 'en',
+  sortBy: 'relevancy',
+  page: 2
+}).then(response => {
+  console.log(response);
+  /*
+    {
+      status: "ok",
+      articles: [...]
+    }
+  */
+});
+
+// To query sources
+// All options are optional
+newsapi.v2.sources({
+  category: 'technology',
+  language: 'en',
+  country: 'us'
+}).then(response => {
+  console.log(response);
+  /*
+    {
+      status: "ok",
+      sources: [...]
+    }
+  */
+});
+```
+
+## Example usage of v1 legacy API
+```js
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI('YOUR_API_KEY');
+
+// To query articles:
+newsapi.articles({
+  source: 'associated-press', // required
+  sortBy: 'top' // optional
+}).then(articlesResponse => {
+  console.log(articlesResponse);
+  /*
+    {
+      status: "ok",
+      source: "associated-press",
+      sortBy: "top",
+      articles: [...]
+    }
+   */
+});
+
+// To query sources:
+newsapi.sources({
+  category: 'technology', // optional
+  language: 'en', // optional
+  country: 'us' // optional
+}).then(sourcesResponse => {
+  console.log(sourcesResponse);
+  /*
+    {
+      status: "ok",
+      sources: [...]
+    }
+  */
+});
+
+// For both methods you can also use traditional Node callback style:
+newsapi.articles({
+  source: 'associated-press',
+  sortBy: 'top'
+}, (err, articlesResponse) => {
+  if (err) console.error(err);
+  else console.log(articlesResponse);
+});
+```
+
+## Caching
+[NewsAPI's caching behavior](https://newsapi.org/docs/caching).
+You can disable caching on a request level by adding the `noCache: true` option to your queries.
+```js
+newsapi.v2.everything({
+  sources: 'bbc-news'
+}, {
+  noCache: true
+}).then(response => {
+  ...
+});
+```
