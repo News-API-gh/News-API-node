@@ -1,0 +1,83 @@
+{
+  "_from": "newsapi",
+  "_id": "newsapi@2.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-WKqItQ3E4hyzRaPMaI1iyxzRzWNsiY7ttrR1FVsJm2y4wMlrYcXLYixPxNKT74pNtIYpBbOTjz4hiBYfcT81Ng==",
+  "_location": "/newsapi",
+  "_phantomChildren": {
+    "ajv": "5.5.2",
+    "asynckit": "0.4.0",
+    "aws4": "1.6.0",
+    "caseless": "0.12.0",
+    "combined-stream": "1.0.5",
+    "delayed-stream": "1.0.0",
+    "extend": "3.0.1",
+    "forever-agent": "0.6.1",
+    "is-typedarray": "1.0.0",
+    "isstream": "0.1.2",
+    "json-stringify-safe": "5.0.1",
+    "jsprim": "1.4.1",
+    "mime-types": "2.1.17",
+    "oauth-sign": "0.8.2",
+    "safe-buffer": "5.1.1",
+    "sshpk": "1.13.1",
+    "stringstream": "0.0.5",
+    "tough-cookie": "2.3.3",
+    "tunnel-agent": "0.6.0",
+    "uuid": "3.2.1"
+  },
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "newsapi",
+    "name": "newsapi",
+    "escapedName": "newsapi",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/newsapi/-/newsapi-2.2.0.tgz",
+  "_shasum": "660ccfd5f2719f471e6a8af0783d223d99633249",
+  "_spec": "newsapi",
+  "_where": "/var/www/html/universal-starter",
+  "author": {
+    "name": "Ben Zarras"
+  },
+  "bugs": {
+    "url": "https://github.com/bzarras/newsapi/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "request": "^2.83.0"
+  },
+  "deprecated": false,
+  "description": "A node interface for the awesome News API from newsapi.org",
+  "devDependencies": {
+    "dotenv": "^5.0.0",
+    "mocha": "^3.1.2",
+    "should": "^11.1.1"
+  },
+  "homepage": "https://github.com/bzarras/newsapi#readme",
+  "keywords": [
+    "news",
+    "api",
+    "newsapi",
+    "news api"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "newsapi",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bzarras/newsapi.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "version": "2.2.0"
+}
